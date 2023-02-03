@@ -27,7 +27,7 @@ pipeline {
 
         stage("Docker build backend"){
             steps {
-                binaryBuild(buildConfigName: appName, buildFromPath: ".")
+                binaryBuild(buildConfigName: appName1, buildFromPath: ".")
             }
         }
 
@@ -47,7 +47,7 @@ pipeline {
       
        stage("Docker build frontend"){
             steps {
-                binaryBuild(buildConfigName: appName1, buildFromPath: ".")
+                binaryBuild(buildConfigName: appName2, buildFromPath: ".")
             }
         }
       
