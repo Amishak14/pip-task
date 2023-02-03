@@ -8,7 +8,7 @@ retriever: modernSCM(
 
  
 
-appName = "amisha-backend-buildconfig"
+appName = "backend-buildconfig"
 
  
 
@@ -31,10 +31,10 @@ pipeline {
        steps{
     tagImage([
             sourceImagePath: "amisha-jenkins",
-            sourceImageName: "expense-tracker-backend",
+            sourceImageName: "expense-tracker-backend-trial",
             sourceImageTag : "latest",
             toImagePath: "amisha-jenkins",
-            toImageName    : "expense-tracker-backend",
+            toImageName    : "expense-tracker-backend-trial",
             toImageTag     : "${env.BUILD_NUMBER}"
 
     ])
