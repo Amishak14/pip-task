@@ -1,3 +1,6 @@
+// Based on:
+// https://raw.githubusercontent.com/redhat-cop/container-pipelines/master/basic-spring-boot/Jenkinsfile
+
 library identifier: "pipeline-library@v1.5",
 retriever: modernSCM(
   [
