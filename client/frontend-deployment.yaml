@@ -41,7 +41,7 @@ spec:
      app: expense-tracker
         
 ---
-#frontend-service
+#frontend-route
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
