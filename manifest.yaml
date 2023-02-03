@@ -71,7 +71,7 @@ spec:
     targetPort: 5000
     
 ---   
- #frontend deployment
+#frontend deployment
 
 apiVersion: apps/v1
 kind: Deployment
@@ -92,7 +92,7 @@ spec:
     spec:
       containers:
        - name: frontend-pod
-         image: image-registry.openshift-image-registry.svc:5000/amisha-jenkins/expense-tracker-frontend:latest
+         image: image-registry.openshift-image-registry.svc:5000/amisha-jenkins/expense-tracker-frontend-trial:latest
          ports:
          - containerPort: 3000
          env:
@@ -104,7 +104,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: frontend-service
+  name: frontend-service-trial
 spec:
   type: ClusterIP
   ports:
@@ -114,6 +114,20 @@ spec:
      app: expense-tracker
         
 ---
+#frontend-route
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: frontend-route-trial
+  namespace: amisha-jenkins
+  labels:
+    app: expense-tracker
+spec:
+  to:
+    kind: Service
+    name: frontend-service-trial
+  port:
+    targetPort: 3000
 
     
     
