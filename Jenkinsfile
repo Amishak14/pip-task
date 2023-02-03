@@ -11,7 +11,8 @@ retriever: modernSCM(
 
  
 
-appName = "backend-buildconfig"
+appName1 = "backend-buildconfig"
+appName2="frontend-buildconfig"
 
  
 
@@ -30,7 +31,7 @@ pipeline {
             }
         }
 
-       stage("Tag image") {
+       stage("Tag backend image") {
        steps{
     tagImage([
             sourceImagePath: "amisha-jenkins",
@@ -43,7 +44,40 @@ pipeline {
     ])
        }
        }
+      
+       stage("Docker build frontend"){
+            steps {
+                binaryBuild(buildConfigName: appName1, buildFromPath: ".")
+            }
+        }
+      
+       stage("Tag frontend image") {
+       steps{
+    tagImage([
+            sourceImagePath: "amisha-jenkins",
+            sourceImageName: "expense-tracker-frontend-trial",
+            sourceImageTag : "latest",
+            toImagePath: "amisha-jenkins",
+            toImageName    : "expense-tracker-frontend-trial",
+            toImageTag     : "${env.BUILD_NUMBER}"
+
+    ])
+       }
+       }
       stage("deploy backend") {
+        steps {
+            script {
+                openshift.withCluster() {
+                    openshift.withProject("$PROJECT_NAME") {
+                        echo "Using project: ${openshift.project()}"
+                         sh 'sh -x $WORKSPACE/backend-deployment.sh'
+                    }
+                 }
+            }
+        } 
+    }  
+      
+       stage("deploy frontend") {
         steps {
             script {
                 openshift.withCluster() {
