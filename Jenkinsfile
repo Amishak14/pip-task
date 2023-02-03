@@ -77,17 +77,6 @@ pipeline {
         } 
     }  
       
-       stage("deploy frontend") {
-        steps {
-            script {
-                openshift.withCluster() {
-                    openshift.withProject("$PROJECT_NAME") {
-                        echo "Using project: ${openshift.project()}"
-                         sh 'sh -x $WORKSPACE/backend-deployment.sh'
-                    }
-                 }
-            }
-        } 
-    }  
+   
    }   
 }   
