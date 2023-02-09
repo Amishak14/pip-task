@@ -2,23 +2,23 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: backend-deployment
+  name: backend-deployment-2
   labels:
-    app: expense-tracker
+    app: expense-tracker-2
 spec:
    replicas: 1
    selector:
      matchLabels:
-      app: expense-tracker
+      app: expense-tracker-2
    template:
      metadata:
         name: backend-pod
         labels:
-          app: expense-tracker
+          app: expense-tracker-2
      spec: 
        containers:
         - name: backend-pod 
-          image: image-registry.openshift-image-registry.svc:5000/amisha-jenkins/expense-tracker-backend:latest
+          image: image-registry.openshift-image-registry.svc:5000/amisha-jenkins/backend
           ports:
            - containerPort: 5000
           env: 
@@ -39,34 +39,34 @@ spec:
             - name: PORT
               value: '5000'
             - name: BASE_URL
-              value:  http://frontend-route-amisha-jenkins.edge-dev-410-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud
+              value:  http://frontend-route-2-amisha-jenkins.edge-dev-410-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud
 
 ---
 #backend-service
 kind: Service 
 apiVersion: v1 
 metadata: 
-  name: backend-service
+  name: backend-service-2
 spec:
   type: ClusterIP
   ports:
     - targetPort: 5000
       port: 5000
   selector:
-    app: expense-tracker
+    app: expense-tracker-2
 ---
 #backend-route
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: backend-route
+  name: backend-route-2
   namespace: amisha-jenkins
   labels:
-    app: expense-tracker
+    app: expense-tracker-2
 spec:
   to:
     kind: Service
-    name: backend-service
+    name: backend-service-2
   port:
     targetPort: 5000
 
