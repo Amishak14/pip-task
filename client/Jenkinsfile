@@ -40,6 +40,12 @@ pipeline {
     ])
        }
        }
+      
+      stage("Trigger Deployment Update Pipeline"){
+        steps{
+          build job:'tag-popeline' , parameters: [string(name: 'TAG',value: env.BUILD_NUMBER)]
+        }
+      }
        
       stage("deploy frontend") {
         steps {
