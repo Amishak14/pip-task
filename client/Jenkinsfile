@@ -23,7 +23,7 @@ pipeline {
 
         stage("Docker build frontend"){
             steps {
-                binaryBuild(buildConfigName: appName, buildFromPath: ".")
+                binaryBuild(buildConfigName: appName, buildFromPath: "./client")
             }
         }
 
