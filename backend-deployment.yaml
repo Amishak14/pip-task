@@ -18,7 +18,7 @@ spec:
      spec: 
        containers:
         - name: backend-pod 
-          image: image-registry.openshift-image-registry.svc:5000/amisha-jenkins/backend
+          image: image-registry.openshift-image-registry.svc:5000/amisha-jenkins/backend:latest
           ports:
            - containerPort: 5000
           env: 
