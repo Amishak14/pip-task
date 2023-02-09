@@ -8,7 +8,7 @@ retriever: modernSCM(
 
  
 
-appName = "amisha-frontend-buildconfig"
+appName = "frontend-buildconfig"
 
  
 
@@ -23,7 +23,7 @@ pipeline {
 
         stage("Docker build frontend"){
             steps {
-                binaryBuild(buildConfigName: appName, buildFromPath: "./client")
+                binaryBuild(buildConfigName: appName, buildFromPath: ".")
             }
         }
 
@@ -31,10 +31,10 @@ pipeline {
        steps{
     tagImage([
             sourceImagePath: "amisha-jenkins",
-            sourceImageName: "expense-tracker-frontend",
+            sourceImageName: "frontend",
             sourceImageTag : "latest",
             toImagePath: "amisha-jenkins",
-            toImageName    : "expense-tracker-frontend",
+            toImageName    : "frontend",
             toImageTag     : "${env.BUILD_NUMBER}"
 
     ])
