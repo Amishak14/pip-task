@@ -11,8 +11,7 @@ retriever: modernSCM(
 
  
 
-appName1 = "backend-buildconfig"
-appName2="frontend-buildconfig"
+appName = "backend-buildconfig"
 
  
 
@@ -27,7 +26,7 @@ pipeline {
 
         stage("Docker build backend"){
             steps {
-                binaryBuild(buildConfigName: appName1, buildFromPath: ".")
+                binaryBuild(buildConfigName: appName, buildFromPath: ".")
             }
         }
 
@@ -35,35 +34,35 @@ pipeline {
        steps{
     tagImage([
             sourceImagePath: "amisha-jenkins",
-            sourceImageName: "expense-tracker-backend-trial",
+            sourceImageName: "backend",
             sourceImageTag : "latest",
             toImagePath: "amisha-jenkins",
-            toImageName    : "expense-tracker-backend-trial",
+            toImageName    : "backend",
             toImageTag     : "${env.BUILD_NUMBER}"
 
     ])
        }
        }
       
-       stage("Docker build frontend"){
-            steps {
-                binaryBuild(buildConfigName: appName2, buildFromPath: ".")
-            }
-        }
+//        stage("Docker build frontend"){
+//             steps {
+//                 binaryBuild(buildConfigName: appName2, buildFromPath: ".")
+//             }
+//         }
       
-       stage("Tag frontend image") {
-       steps{
-    tagImage([
-            sourceImagePath: "amisha-jenkins",
-            sourceImageName: "expense-tracker-frontend-trial",
-            sourceImageTag : "latest",
-            toImagePath: "amisha-jenkins",
-            toImageName    : "expense-tracker-frontend-trial",
-            toImageTag     : "${env.BUILD_NUMBER}"
+//        stage("Tag frontend image") {
+//        steps{
+//     tagImage([
+//             sourceImagePath: "amisha-jenkins",
+//             sourceImageName: "expense-tracker-frontend-trial",
+//             sourceImageTag : "latest",
+//             toImagePath: "amisha-jenkins",
+//             toImageName    : "expense-tracker-frontend-trial",
+//             toImageTag     : "${env.BUILD_NUMBER}"
 
-    ])
-       }
-       }
+//     ])
+//        }
+//        }
       stage("deploy backend") {
         steps {
             script {
